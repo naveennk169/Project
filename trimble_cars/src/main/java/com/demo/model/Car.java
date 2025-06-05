@@ -1,88 +1,66 @@
-package com.demo.model;
+package com.trimblecars.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
 
 @Entity
 public class Car {
-
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String make;
     private String model;
-    private String status; // 'Ideal', 'On Lease', 'On Service'
+    private String variant;
+    private String registrationNumber;
+
+    @Enumerated(EnumType.STRING)
+    private CarStatus status;
 
     @ManyToOne
-    private User owner;  // Car Owner (relation to User)
+    private User owner;
 
-    @OneToMany(mappedBy = "car")
-    private List<Lease> leases;
-
-    public Car() {
+    public enum CarStatus {
+        IDLE,
+        ON_LEASE,
+        ON_SERVICE
     }
 
-    public Car(Long id, String make, String model, String status, User owner, List<Lease> leases) {
-        this.id = id;
-        this.make = make;
-        this.model = model;
-        this.status = status;
-        this.owner = owner;
-        this.leases = leases;
-    }
+    // Constructors
+    public Car() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public void setLeases(List<Lease> leases) {
-        this.leases = leases;
-    }
-
+    // Getters and setters
     public Long getId() {
-        return id;
+	    return id;
     }
-
-    public String getMake() {
-        return make;
+    public void setId(Long id) {
+	    this.id = id;
     }
-
-    public String getModel() {
-        return model;
+    public String getModel() { 
+	    return model; 
     }
-
-    public String getStatus() {
-        return status;
+    public void setModel(String model) { 
+	    this.model = model; 
     }
-
+    public String getVariant() { 
+	    return variant;
+    }
+    public void setVariant(String variant) { 
+	    this.variant = variant; 
+    }
+    public String getRegistrationNumber() {
+	    return registrationNumber; 
+    }
+    public void setRegistrationNumber(String registrationNumber) { 
+	    this.registrationNumber = registrationNumber;
+    }
+    public CarStatus getStatus() {
+	    return status; 
+    }
+    public void setStatus(CarStatus status) { 
+	    this.status = status;
+    }
     public User getOwner() {
-        return owner;
+	    return owner; 
     }
-
-    public List<Lease> getLeases() {
-        return leases;
+    public void setOwner(User owner) {
+	    this.owner = owner; 
     }
-
-	public void setStatus(Status ideal) {
-		// TODO Auto-generated method stub
-		
-	}
 }
