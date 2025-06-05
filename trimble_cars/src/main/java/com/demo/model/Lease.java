@@ -1,74 +1,68 @@
-package com.demo.model;
+package com.trimblecars.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 @Entity
 public class Lease {
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
 
     @ManyToOne
     private Car car;
 
     @ManyToOne
-    private User customer;  // Lease for End Customer
+    private User customer;
 
-    public Lease() {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    @Enumerated(EnumType.STRING)
+    private LeaseStatus status;
+
+    public enum LeaseStatus {
+        ACTIVE, ENDED
     }
 
-    public Lease(Long id, LocalDate startDate, LocalDate endDate, Car car, User customer) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.car = car;
-        this.customer = customer;
-    }
+    // Constructors
+    public Lease() {}
 
+    // Getters and setters
+    public Long getId() { 
+        return id;
+    }
     public void setId(Long id) {
-        this.id = id;
+        this.id = id; 
     }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public Car getCar() {
+        return car; 
     }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public void setCar(Car car) {
         this.car = car;
     }
-
-    public void setCustomer(User customer) {
+    public User getCustomer() {
+        return customer; 
+    }
+    public void setCustomer(User customer) { 
         this.customer = customer;
     }
-
-    public Long getId() {
-        return id;
+    public LocalDateTime getStartDate() {
+        return startDate; 
     }
-
-    public LocalDate getStartDate() {
-        return startDate;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
-
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDateTime getEndDate() { 
+        return endDate; 
     }
-
-    public Car getCar() {
-        return car;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
-
-    public User getCustomer() {
-        return customer;
+    public LeaseStatus getStatus() { 
+        return status;
+    }
+    public void setStatus(LeaseStatus status) {
+        this.status = status; 
     }
 }
